@@ -6,22 +6,19 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
     <changeSet id="1" author="cesar">
-        <preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela PESSOA">
+        <preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela PEIXE">
             <not>
-                <tableExists tableName="PESSOA"/>
+                <tableExists tableName="PEIXE"/>
             </not>
         </preConditions>
 
-        <createTable tableName="PESSOA">
-
+        <createTable tableName="PEIXE">
             <column name="ID" autoIncrement="true" type="int">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PESSOA"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PEIXE"/>
             </column>
-
             <column name="NOME" type="VARCHAR(100)"/>
-            <column name="CPF" type="VARCHAR(11)"/>
-            <column name="EMAIL" type="VARCHAR(100)"/>
-
+            <column name="PESO" type="NUMERIC(5,2)"/>
+            <column name="COMPRIMENTO" type="NUMERIC(5,2)"/>
         </createTable>
 
     </changeSet>
