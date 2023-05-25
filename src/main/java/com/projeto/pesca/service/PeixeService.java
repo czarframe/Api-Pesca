@@ -1,7 +1,11 @@
 package com.projeto.pesca.service;
 
 import com.projeto.pesca.domain.Peixe;
+import com.projeto.pesca.domain.Pessoa;
+import com.projeto.pesca.domain.PessoaPeixe;
 import com.projeto.pesca.repository.PeixeRepository;
+import com.projeto.pesca.repository.PessoaPeixeRepository;
+import com.projeto.pesca.repository.PessoaRepository;
 import com.projeto.pesca.service.exception.DatabaseException;
 import com.projeto.pesca.service.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,6 +24,12 @@ public class PeixeService {
     @Autowired
     private PeixeRepository repository;
 
+    @Autowired
+    private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private PessoaPeixeRepository pessoaPeixeRepository;
+
     public Page<Peixe> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
@@ -30,7 +40,15 @@ public class PeixeService {
     }
 
     public Peixe insert(Peixe obj) {
-        return repository.save(obj);
+        Peixe contatoSalvo = repository.save(obj);
+        Pessoa pessoa = obj.getPessoa();
+        if (pessoa != null && pessoaRepository.findById(pessoa.getId()).isPresent()) {
+            PessoaPeixe pessoaPeixe = new PessoaPeixe();
+            pessoaPeixe.setPessoa(pessoa);
+            pessoaPeixe.setPeixe(obj);
+            pessoaPeixeRepository.save(pessoaPeixe);
+        }
+        return contatoSalvo;
     }
 
     public Peixe update(Long id, Peixe obj) {
@@ -51,6 +69,9 @@ public class PeixeService {
 
     public void delete(Long id) {
         try {
+            if (pessoaPeixeRepository.findPeixeById(id) != null) {
+                pessoaPeixeRepository.deleteById(id);
+            }
             repository.findById(id);
             repository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {

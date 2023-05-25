@@ -1,9 +1,7 @@
 package com.projeto.pesca.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,4 +33,10 @@ public class Peixe implements Serializable {
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer=3, fraction=2)
     private BigDecimal comprimento;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
+
 }

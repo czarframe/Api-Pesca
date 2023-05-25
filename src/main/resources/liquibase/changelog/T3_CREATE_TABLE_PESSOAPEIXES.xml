@@ -6,23 +6,26 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
     <changeSet id="1" author="cesar">
-        <preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela PEIXE">
+        <preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela PESSOA_PEIXES">
             <not>
-                <tableExists tableName="PEIXE"/>
+                <tableExists tableName="PESSOA_PEIXES"/>
             </not>
         </preConditions>
 
-        <createTable tableName="PEIXE">
+        <createTable tableName="PESSOA_PEIXES">
+
             <column name="ID" autoIncrement="true" type="int">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PEIXE"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PESSOA_PEIXES"/>
             </column>
             <column name="PESSOA_ID" type="int">
-                <constraints nullable="true" foreignKeyName="FK_PESSOA" referencedTableName="PESSOA"
+                <constraints nullable="false" foreignKeyName="FK_PESSOA_PEIXES_PESSOA" referencedTableName="PESSOA"
                              referencedColumnNames="ID"/>
             </column>
-            <column name="NOME" type="VARCHAR(100)"/>
-            <column name="PESO" type="NUMERIC(5,2)"/>
-            <column name="COMPRIMENTO" type="NUMERIC(5,2)"/>
+            <column name="PEIXES_ID" type="int">
+                <constraints nullable="false" foreignKeyName="FK_PESSOA_PEIXES_PEIXE" referencedTableName="PEIXE"
+                             referencedColumnNames="ID"/>
+            </column>
+
         </createTable>
 
     </changeSet>
