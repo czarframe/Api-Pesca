@@ -21,8 +21,8 @@
                              referencedColumnNames="ID"/>
             </column>
             <column name="NOME" type="VARCHAR(100)"/>
-            <column name="PESO" type="NUMERIC(5,2)"/>
-            <column name="COMPRIMENTO" type="NUMERIC(5,2)"/>
+            <column name="PESO" type="NUMERIC(8,2)"/>
+            <column name="COMPRIMENTO" type="NUMERIC(6,2)"/>
         </createTable>
 
     </changeSet>

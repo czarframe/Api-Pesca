@@ -26,12 +26,12 @@ public class Peixe implements Serializable {
 
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer=4, fraction=2)
+    @Digits(integer=6, fraction=2)
     private BigDecimal peso;
 
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer=3, fraction=2)
+    @Digits(integer=4, fraction=2)
     private BigDecimal comprimento;
 
     @ManyToOne
